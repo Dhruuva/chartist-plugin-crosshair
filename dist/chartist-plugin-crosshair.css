@@ -1,0 +1,98 @@
+.ct-legend{
+	
+	padding-left: 3px;
+	padding-right: 3px;
+	position: absolute;
+	border-radius: 5px;
+	background-color: azure;
+	position: absolute;
+	border: solid 2px #e8e8e8;
+}
+.ct-label-lbl {
+    display: inline;
+    padding: 1px;
+    font-weight: 700;
+    line-height: 1;
+    color:  plum;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25em;
+}
+.ct-label-val {
+    display: inline;
+    padding: 1px;
+    font-weight: 700;
+    line-height: 1;
+    color:  palegreen;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25em;
+}
+
+.ct-cross-line {
+  stroke: indigo;
+  stroke-width: 1px;
+  stroke-dasharray: 2px;
+}
+
+.arrow_rbox {
+    color:black;
+    padding:0px;
+    position: absolute;
+    background: aliceblue;
+    border: 2px solid #e8e8e8;
+    text-align: center;
+    font-size:0.8em;
+    z-index:1;
+    min-width: 4em;
+} .arrow_rbox:after, .arrow_rbox:before {
+    left: 100%;
+    top: 50%;
+    border: solid transparent;
+    content:"";
+    height: 0;
+    width: 0;
+    position: absolute; 
+    pointer-events: none; } 
+.arrow_rbox:after {
+     border-color: solid transparent; 
+     border-left-color: #e8e8e8; 
+     border-width: 10px;
+     margin-top: -10px; } 
+.arrow_rbox:before {
+     border-color: solid transparent;
+      border-left-color: aliceblue;
+      border-width: 13px;
+      margin-top: -13px; }
+
+.arrow_box {
+    padding:1px;
+    position: absolute;
+    background: aliceblue;
+    border: 2px solid #e8e8e8;
+    text-align: center;
+    font-size:0.8em;
+    z-index:1;
+     min-width: 6em;
+} .arrow_box:after, .arrow_box:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content:"";
+    height: 0;
+    width: 0;
+    position: absolute; 
+    pointer-events: none; } 
+.arrow_box:after {
+     border-color: solid transparent; 
+     border-bottom-color: #e8e8e8; 
+     border-width: 10px;
+     margin-left: -10px; } 
+.arrow_box:before {
+     border-color: solid transparent;
+      border-bottom-color: #e8e8e8;
+      border-width: 13px;
+      margin-left: -13px;
+}      
