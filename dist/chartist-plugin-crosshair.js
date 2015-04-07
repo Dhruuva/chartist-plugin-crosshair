@@ -43,7 +43,7 @@
           var $ytoolTip = $('#eChart').append('<div class="arrow_rbox"></div>').find('.arrow_rbox').hide();  
           var x,y,zl,ofx,ofy;
           var cxp,ctx,hl,vl,low,lft,yy,nule;
-          var dlt=5;
+          var dlt=5,snm=" ";
           ofx=$chart.position().left;
           ofy=$chart.position().top;
 
@@ -100,6 +100,7 @@
                 };    
               });
               if (typeof p !== "undefined"){
+                snm = p.parent().attr('ct:series-name');
                 yy=cxp.attr('y1');
                 cxp.attr({style: 'stroke-width: 8px;'});
                 var v=cxp.attr('y1'), h=cxp.attr('x1');
@@ -117,7 +118,9 @@
                   hl.attr({y1:v,y2:v}); 
                   var lb=cxp.attr('ct:meta');
                   var val=cxp.attr('ct:value');
-                  $lgd.html('<span class="ct-label-lbl">'+ lb +' :<span class="ct-label-val"> '+ val +' </span></span>'); 
+                  // snm =p.parent().attr('class');
+                  $lgd.html('<span class="ct-label-snm">'+ snm + '  <span class="ct-label-lbl">'+ lb +' :<span class="ct-label-val"> '
+                    + val +' </span></span></span>'); 
                   $xtoolTip.html(lb).show();
                   $ytoolTip.html(val).show();
                       $xtoolTip.css({

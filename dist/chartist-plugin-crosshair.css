@@ -6,15 +6,26 @@
 	border-radius: 5px;
 	background-color: azure;
 	position: absolute;
-	border: solid 2px #e8e8e8;
+	border: solid 2px silver;  /*#e8e8e8;*/
+}
+.ct-label-snm {
+    display: inline;
+    padding: 1px;
+    font-weight: 600;
+    line-height: 1;
+    color:  #b0b0b0;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25em;
 }
 .ct-label-lbl {
     display: inline;
     padding: 1px;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1;
     color:  plum;
-    text-align: center;
+    text-align: left;
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: 0.25em;
@@ -22,9 +33,9 @@
 .ct-label-val {
     display: inline;
     padding: 1px;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1;
-    color:  palegreen;
+    color:  lawngreen;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
@@ -32,7 +43,7 @@
 }
 
 .ct-cross-line {
-  stroke: indigo;
+  stroke: blue;
   stroke-width: 1px;
   stroke-dasharray: 2px;
 }
