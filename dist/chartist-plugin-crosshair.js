@@ -65,7 +65,6 @@
             };
             $lgd.css({left: x*1.177 ,top:y*5.23333 }); 
           }).on('created',function(context){
-            var dt='2010-01-23'
                 $lgd.html('<span class="ct-label-val">:<span class="ct-label-val"> </span></span>'); 
                 ctx=context;
                 low=ctx.chartRect.y1;
