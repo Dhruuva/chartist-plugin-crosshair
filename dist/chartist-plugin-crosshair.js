@@ -39,8 +39,8 @@
          .append('<div class="ct-legend">yuiyuiu</div>')
           .find('.ct-legend').show(); 
            
-          var $xtoolTip = $('#eChart').append('<div class="arrow_box"></div>').find('.arrow_box').hide();
-          var $ytoolTip = $('#eChart').append('<div class="arrow_rbox"></div>').find('.arrow_rbox').hide();  
+          var $xtoolTip = $chart.append('<div class="arrow_box"></div>').find('.arrow_box').hide();
+          var $ytoolTip = $chart.append('<div class="arrow_rbox"></div>').find('.arrow_rbox').hide();  
           var x,y,zl,ofx,ofy;
           var cxp,ctx,hl,vl,low,lft,yy,nule;
           var dlt=5,snm=" ";
