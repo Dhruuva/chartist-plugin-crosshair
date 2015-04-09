@@ -29,8 +29,9 @@
     
 
     var defaultOptions = {
-     
-      crossLine:'ct-cross-line' 
+      axisSolid:true,
+      showLegend:true,
+      crossLine:'ct-cross-line',
     };
 
     Chartist.plugins = Chartist.plugins || {};
@@ -44,12 +45,13 @@
          var $lgd = $chart
          .append('<div class="ct-legend">Legend</div>')
           .find('.ct-legend').show(); 
+          if (!options.showLegend) $lgd.hide();
            
           var $xtoolTip = $chart.append('<div class="arrow_box"></div>').find('.arrow_box').hide();
           var $ytoolTip = $chart.append('<div class="arrow_rbox"></div>').find('.arrow_rbox').hide();  
           var x,y,zl,ofx,ofy;
           var cxp,ctx,hl,vl,low,lft,yy,nule;
-          var dlt=5,snm=" ";
+          var dlt=5,snm=" ",isZero=false,lastAxe,axeSet=false;
           ofx=$chart.position().left;
           ofy=$chart.position().top;
           var str='';
@@ -60,16 +62,28 @@
                   if (x===undefined && data.index==0){
                       x=data.element.attr('x1');
                       y=data.element.attr('y1');
-                      data.element.addClass("axis");
-                  };    
+                      if (options.axisSolid){
+                          data.element.addClass("axis");
+                      };
+                  } else if (data.index==0 && data.element.attr('class')==='ct-grid ct-vertical'){
+                    if (options.axisSolid){
+                        lastAxe=data.element;
+                    };  
+                  };     
                   // var x=data.element.attr('class');
-              }else if(data.type === 'label') {
+             } else if(data.type === 'label') {
                  var nstr= data.text;
                  // str=myFun(nstr)+ '  '+str;
                  // $lgd.html('<span class="ct-label-val">'+str+'<span class="ct-label-val"> : '+ zl.length+' </span></span>');
                    
                     var z=nstr.toString().replace(/[^-.0-9]/g,'');
-                    if (z==0) zl[data.index].addClass("axis");
+                    if (z==0){
+                      if (options.axisSolid){
+                          zl[data.index].addClass("axis");
+                          isZero=true;
+                      };
+                    };
+                    
               
             };
             $lgd.css({left: x*1.177 ,top:y*5.23333 }); 
@@ -82,10 +96,17 @@
                 $ytoolTip.hide();
                 vl=x=nule;
 
-          });     
+          }); 
+           
           $chart.on('mousemove', function(e) {
+              if ( options.axisSolid && isZero) {
+                  if ( typeof lastAxe!==undefined && !axeSet){
+                      lastAxe.removeClass("axis");
+                      axeSet=true;
+                  };
+              };   
               var x=e.clientX-ofx,y=e.clientY;
-              var kids = $(this).find('.ct-series');
+              var kids = $(this).find('.ct-series-a');
               var pt2=0,pt1=0,p;
               kids.children().each(function( index ){
                 var cp=$(this);
@@ -127,7 +148,7 @@
                   var lb=cxp.attr('ct:meta');
                   var val=cxp.attr('ct:value');
                   
-                  $lgd.html('<span class="ct-label-snm">'+ snm + '  <span class="ct-label-lbl">'+ lb +' :<span class="ct-label-val"> '
+                  $lgd.html('<span class="ct-label-snm">'+ snm +' <span class="ct-label-lbl">'+ lb +' :<span class="ct-label-val"> '
                     + val +' </span></span></span>');
 
                   $xtoolTip.html(lb).show();
@@ -143,7 +164,8 @@
                 };
               };
 
-          });  
+          }); 
+
         };
       };
     };
