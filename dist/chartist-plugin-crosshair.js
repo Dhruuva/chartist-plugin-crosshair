@@ -103,7 +103,12 @@
                   if ( typeof lastAxe!==undefined && !axeSet){
                       lastAxe.removeClass("axis");
                       axeSet=true;
-                  };
+                  } ;
+              } else if (options.axisSolid && !isZero){
+                if ( typeof lastAxe!==undefined && !axeSet){
+                      lastAxe.addClass("axis");
+                      axeSet=true;
+                  } ;
               };   
               var x=e.clientX-ofx,y=e.clientY;
               var kids = $(this).find('.ct-series-a');
