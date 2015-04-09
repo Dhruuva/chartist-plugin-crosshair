@@ -19,8 +19,14 @@
    *
    */
   /* global Chartist */
+  function myFun(lb) {
+       return lb.toString().replace(/[^-.0-9]/g,'');
+    };
+  
+
   (function(window, document, Chartist) {
     'use strict';
+    
 
     var defaultOptions = {
      
@@ -36,7 +42,7 @@
         if(chart instanceof Chartist.Line) {
          var $chart = $(chart.container);
          var $lgd = $chart
-         .append('<div class="ct-legend">yuiyuiu</div>')
+         .append('<div class="ct-legend">Legend</div>')
           .find('.ct-legend').show(); 
            
           var $xtoolTip = $chart.append('<div class="arrow_box"></div>').find('.arrow_box').hide();
@@ -46,7 +52,7 @@
           var dlt=5,snm=" ";
           ofx=$chart.position().left;
           ofy=$chart.position().top;
-
+          var str='';
           chart.on('draw', function(data) {
             if(data.type === 'grid') {
                    zl=[];
@@ -58,14 +64,17 @@
                   };    
                   // var x=data.element.attr('class');
               }else if(data.type === 'label') {
-                 var z=data.text.replace(/\D/g,'');
-                  if (z==0){
-                      zl[data.index].addClass("axis");
-              };
+                 var nstr= data.text;
+                 // str=myFun(nstr)+ '  '+str;
+                 // $lgd.html('<span class="ct-label-val">'+str+'<span class="ct-label-val"> : '+ zl.length+' </span></span>');
+                   
+                    var z=nstr.toString().replace(/[^-.0-9]/g,'');
+                    if (z==0) zl[data.index].addClass("axis");
+              
             };
             $lgd.css({left: x*1.177 ,top:y*5.23333 }); 
           }).on('created',function(context){
-                $lgd.html('<span class="ct-label-val">:<span class="ct-label-val"> </span></span>'); 
+                // $lgd.html('<span class="ct-label-val">:<span class="ct-label-val"> </span></span>'); 
                 ctx=context;
                 low=ctx.chartRect.y1;
                 lft=ctx.chartRect.x1;
@@ -117,9 +126,10 @@
                   hl.attr({y1:v,y2:v}); 
                   var lb=cxp.attr('ct:meta');
                   var val=cxp.attr('ct:value');
-                  // snm =p.parent().attr('class');
+                  
                   $lgd.html('<span class="ct-label-snm">'+ snm + '  <span class="ct-label-lbl">'+ lb +' :<span class="ct-label-val"> '
-                    + val +' </span></span></span>'); 
+                    + val +' </span></span></span>');
+
                   $xtoolTip.html(lb).show();
                   $ytoolTip.html(val).show();
                       $xtoolTip.css({
@@ -127,7 +137,7 @@
                               top: low - $xtoolTip.height() +25
                       });
                       $ytoolTip.css({
-                              left: lft - $ytoolTip.width() / 2 -35,
+                              left: lft - $ytoolTip.width() / 2 -32,
                               top: yy- $ytoolTip.height()+5
                       });      
                 };

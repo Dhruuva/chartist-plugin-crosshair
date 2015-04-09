@@ -57,7 +57,7 @@
     text-align: center;
     font-size:0.8em;
     z-index:1;
-    min-width: 4em;
+    min-width: 38px;
 } .arrow_rbox:after, .arrow_rbox:before {
     left: 100%;
     top: 50%;
