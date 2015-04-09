@@ -42,11 +42,9 @@
       return function ctCrosshair(chart) {
         if(chart instanceof Chartist.Line) {
          var $chart = $(chart.container);
-         var $lgd = $chart
-         .append('<div class="ct-legend">Legend</div>')
-          .find('.ct-legend').show(); 
+         var $lgd = $chart.append('<div class="ct-legend"></div>').find('.ct-legend').show(); 
           if (!options.showLegend) $lgd.hide();
-           
+
           var $xtoolTip = $chart.append('<div class="arrow_box"></div>').find('.arrow_box').hide();
           var $ytoolTip = $chart.append('<div class="arrow_rbox"></div>').find('.arrow_rbox').hide();  
           var x,y,zl,ofx,ofy;
@@ -67,6 +65,7 @@
                       };
                   } else if (data.index==0 && data.element.attr('class')==='ct-grid ct-vertical'){
                     if (options.axisSolid){
+
                         lastAxe=data.element;
                     };  
                   };     
@@ -85,6 +84,15 @@
                     };
                     
               
+            } else if(data.type === 'line') {
+              var sn=data.element.parent();  
+              $lgd.text(sn.attr('ct:series-name'));
+              if ( options.axisSolid && !isZero) {
+                  if ( typeof lastAxe!==undefined && !axeSet){
+                      lastAxe.addClass("axis");;
+                      axeSet=true;
+                  } ;
+              };
             };
             $lgd.css({left: x*1.177 ,top:y*5.23333 }); 
           }).on('created',function(context){
@@ -99,17 +107,17 @@
           }); 
            
           $chart.on('mousemove', function(e) {
-              if ( options.axisSolid && isZero) {
-                  if ( typeof lastAxe!==undefined && !axeSet){
-                      lastAxe.removeClass("axis");
-                      axeSet=true;
-                  } ;
-              } else if (options.axisSolid && !isZero){
-                if ( typeof lastAxe!==undefined && !axeSet){
-                      lastAxe.addClass("axis");
-                      axeSet=true;
-                  } ;
-              };   
+              // if ( options.axisSolid && isZero) {
+              //     if ( typeof lastAxe!==undefined && !axeSet){
+              //         lastAxe.removeClass("axis");
+              //         axeSet=true;
+              //     } ;
+              // } else if (options.axisSolid && !isZero){
+              //   if ( typeof lastAxe!==undefined && !axeSet){
+              //         lastAxe.addClass("axis");
+              //         axeSet=true;
+              //     } ;
+              // };   
               var x=e.clientX-ofx,y=e.clientY;
               var kids = $(this).find('.ct-series-a');
               var pt2=0,pt1=0,p;
