@@ -1,3 +1,6 @@
+.ct-chart .ct-grid.ct-horizontal.axis{stroke:dimgray; stroke-dasharray: none;}
+.ct-chart .ct-grid.ct-vertical.axis{stroke:dimgray; stroke-dasharray: none;}
+
 .ct-legend{
 	
 	padding-left: 3px;
