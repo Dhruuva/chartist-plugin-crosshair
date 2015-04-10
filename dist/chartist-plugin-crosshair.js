@@ -85,8 +85,10 @@
                     
               
             } else if(data.type === 'line') {
-              var sn=data.element.parent();  
-              $lgd.text(sn.attr('ct:series-name'));
+              var sn=data.element.parent(); 
+              if(sn.attr('class')==='ct-series ct-series-a') {
+                 $lgd.text(sn.attr('ct:series-name'));
+              };
               if ( options.axisSolid && !isZero) {
                   if ( typeof lastAxe!==undefined && !axeSet){
                       lastAxe.addClass("axis");;
@@ -103,6 +105,7 @@
                 $xtoolTip.hide();
                 $ytoolTip.hide();
                 vl=x=nule;
+                axeSet=false;
 
           }); 
            
