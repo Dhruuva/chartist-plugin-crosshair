@@ -26,21 +26,31 @@ and  see it
 ----------
 ## Plugin has options ##
 
- 1. Plugin can make main axis solid (dhashed): 
+- 1. Plugin can make main axis solid (dhashed): 
 
-> `plugins:Chartist.plugins.ctCrosshair({axisSolid:true})]`
-> 
-in css selector it is`.ct-chart .ct-grid.ct-horizontal.axis{stroke:dimgray; stroke-dasharray: none;}
+`plugins:Chartist.plugins.ctCrosshair({axisSolid:true})]`
+
+ implement you custom style in css selector it is
+>`.ct-chart .ct-grid.ct-horizontal.axis{stroke:dimgray; stroke-dasharray: none;}
 .ct-chart .ct-grid.ct-vertical.axis{stroke:dimgray; stroke-dasharray: none;}`
 
-2.Plugin show (hide) the legend `plugins:[Chartist.plugins.ctCrosshair({showLegend:true,})]`
-in css selector it is main legend container `.ct-legend{...` and seria name `.ct-label-snm {`, Y label `.ct-label-lbl{...`, X label `.ct-label-val {`.
+-   Plugin show (hide) a legend 
+>`plugins:[Chartist.plugins.ctCrosshair({showLegend:true,})]`
 
- Also you  can implement you custom style for the crosshair line in css `.ct-cross-line {
+ in css selector  
+ > it is main legend container`.ct-legend{...` 
+ , seria name  `.ct-label-snm {..`
+, Y label `.ct-label-lbl{...`
+, X label `.ct-label-val {...`.
+
+-  Also you  can implement you custom style for the **crosshair lines** in css `.ct-cross-line {
   stroke: blue;
   stroke-width: 1px;
   stroke-dasharray: 2px;
-}` and for the crosshair arrows: Y axe `.arrow_rbox {...` and X `.arrow_box{ . . .`
+}` 
+and for the crosshair arrow boxes: 
+Y axe `.arrow_rbox {...` 
+and X `.arrow_box{ . . .`
 
 So, in order to put all together you can see this sample on [jsFiddle](http://jsfiddle.net/dhruuva/pmdsmqbm/).
 Sample above has loading  the data  from Yahoo finance and build multi series chart. **Also** keep in mind that crosshair worked only on first line-seria, to change it place, on multy-line chart, You need implement some code reodering series array like in this sample. 
