@@ -15,8 +15,8 @@
 }(this, function () {
 
   /**
-   * Chartist.js plugin to display a data label on top of the points in a line chart.
-   *
+   * Chartist.js plugin to display crosshair  in a line chart.
+   * Created by Aleksey Bazhenov todhruva@mail.ru
    */
   /* global Chartist */
   function myFun(lb) {
@@ -41,12 +41,9 @@
 
       return function ctCrosshair(chart) {
         if(chart instanceof Chartist.Line) {
-         var $chart = $(chart.container);
-         var $lgd = $chart.append('<div class="ct-legend"></div>').find('.ct-legend').show(); 
-          if (!options.showLegend) $lgd.hide();
-
-          var $xtoolTip = $chart.append('<div class="arrow_box"></div>').find('.arrow_box').hide();
-          var $ytoolTip = $chart.append('<div class="arrow_rbox"></div>').find('.arrow_rbox').hide();  
+        var $chart = $(chart.container);
+        var lgd,xtoolTip,ytoolTip;
+        
           var x,y,zl,ofx,ofy;
           var cxp,ctx,hl,vl,low,lft,yy,nule;
           var dlt=5,snm=" ",isZero=false,lastAxe,axeSet=false;
@@ -82,12 +79,14 @@
                           isZero=true;
                       };
                     };
+
                     
               
             } else if(data.type === 'line') {
               var sn=data.element.parent(); 
               if(sn.attr('class')==='ct-series ct-series-a') {
-                 $lgd.text(sn.attr('ct:series-name'));
+                 snm= sn.attr('ct:series-name');
+                
               };
               if ( options.axisSolid && !isZero) {
                   if ( typeof lastAxe!==undefined && !axeSet){
@@ -96,31 +95,36 @@
                   } ;
               };
             };
-            $lgd.css({left: x*1.177 ,top:y*5.23333 }); 
+            
           }).on('created',function(context){
-                // $lgd.html('<span class="ct-label-val">:<span class="ct-label-val"> </span></span>'); 
+                
                 ctx=context;
                 low=ctx.chartRect.y1;
                 lft=ctx.chartRect.x1;
-                $xtoolTip.hide();
-                $ytoolTip.hide();
                 vl=x=nule;
                 axeSet=false;
+                var htm='<div class="ct-legend"><span class="ct-label-snm">'+ snm+'</span> <span class="ct-label-lbl"> </span><span class="ct-label-val"></span></div>';
+                lgd= ctx.svg.foreignObject(htm ,{
+                       y:5,x:ofx*1.31,height:50,width:150 ,style:"overflow: visible;"
+                    });
+
+                var htm1='<div class="arrow_box">00</div>';
+                xtoolTip= ctx.svg.foreignObject(htm1 ,{
+                       y:low,x:lft,height:30,width:110 ,style:"overflow: visible;"
+                    },false);
+                $chart.find('.arrow_box').hide(); 
+
+                var htm2='<div class="arrow_rbox">00</div>';
+                ytoolTip= ctx.svg.foreignObject(htm2 ,{
+                       y:low,x:lft,height:30,width:110 ,style:"overflow: visible;"
+                    },false);
+                $chart.find('.arrow_rbox').hide(); 
+
+                if (!options.showLegend) lgd.hide();
 
           }); 
            
           $chart.on('mousemove', function(e) {
-              // if ( options.axisSolid && isZero) {
-              //     if ( typeof lastAxe!==undefined && !axeSet){
-              //         lastAxe.removeClass("axis");
-              //         axeSet=true;
-              //     } ;
-              // } else if (options.axisSolid && !isZero){
-              //   if ( typeof lastAxe!==undefined && !axeSet){
-              //         lastAxe.addClass("axis");
-              //         axeSet=true;
-              //     } ;
-              // };   
               var x=e.clientX-ofx,y=e.clientY;
               var kids = $(this).find('.ct-series-a');
               var pt2=0,pt1=0,p;
@@ -155,28 +159,29 @@
                             x2: ctx.chartRect.x2,
                             y1: v,
                             y2: v
-                        }, options.crossLine);                    
+                        }, options.crossLine); 
                         vl= ctx.svg.elem('line',{x1: h,x2: h,y1: ctx.chartRect.y1,y2: ctx.chartRect.y2
                                                 },options.crossLine);
+                    
                 } else {
                   vl.attr({x1:h,x2:h});
-                  hl.attr({y1:v,y2:v}); 
+                  hl.attr({y1:v,y2:v});
+                  var $xTp=$chart.find('.arrow_box');
+                  xtoolTip.attr({y:low-$xTp.height()+25,x:(h-$xTp.width()*0.5-5)});
+                  
+                  var $yTp=$chart.find('.arrow_rbox');
+                  ytoolTip.attr({y:yy-$yTp.height()+5,x:(lft-$yTp.width()/2-32)});
+                  
+
                   var lb=cxp.attr('ct:meta');
                   var val=cxp.attr('ct:value');
-                  
-                  $lgd.html('<span class="ct-label-snm">'+ snm +' <span class="ct-label-lbl">'+ lb +' :<span class="ct-label-val"> '
-                    + val +' </span></span></span>');
-
-                  $xtoolTip.html(lb).show();
-                  $ytoolTip.html(val).show();
-                      $xtoolTip.css({
-                              left: h-$xtoolTip.width()*0.5  - 4,
-                              top: low - $xtoolTip.height() +25
-                      });
-                      $ytoolTip.css({
-                              left: lft - $ytoolTip.width() / 2 -32,
-                              top: yy- $ytoolTip.height()+5
-                      });      
+                  $chart.find('.ct-label-val').text(val);
+                  $chart.find('.ct-label-lbl').text(lb+": ");
+                  $xTp.text(lb);
+                  $yTp.text(val);
+                  $xTp.show();
+                  $yTp.show();
+                 
                 };
               };
 
